@@ -2,11 +2,11 @@ package com.practice.arrayAndString;
 
 public class ArrayAndStringPractice {
   public static void main(String[] args) {
-    System.out.println(removeDuplicates2("aavbnnn".toCharArray()));
-    System.out.println(removeDuplicates2("ababa".toCharArray()));
-    System.out.println(removeDuplicates2("aaabnn".toCharArray()));
-    System.out.println(removeDuplicates2("abacabnn".toCharArray()));
-    System.out.println(removeDuplicates2("aaaaaaa".toCharArray()));
+    System.out.println(removeDuplicates("aavbnnn".toCharArray()));
+    System.out.println(removeDuplicates("ababa".toCharArray()));
+    System.out.println(removeDuplicates("aaabnn".toCharArray()));
+    System.out.println(removeDuplicates("abacabnn".toCharArray()));
+    System.out.println(removeDuplicates("aaaaaaa".toCharArray()));
   }
 
   public static char[] removeDuplicates(char[] str) {
@@ -32,23 +32,4 @@ public class ArrayAndStringPractice {
     return str;
   }
 
-  public static char[] removeDuplicates2(char[] str) {
-    if (str == null) return str;
-    if (str.length < 2) return str;
-    int tail = 1;
-    for (int i = 1; i < str.length; ++i) {
-      int j ;
-      for ( j = 0; j < tail; ++j) {
-        if(str[i]==str[j]) {
-          break;
-        }
-      }
-      if(j==tail) {
-        str[tail] = str[i];
-        ++tail;
-      }
-    }
-    str[tail] = 0;
-    return str;
-  }
 }

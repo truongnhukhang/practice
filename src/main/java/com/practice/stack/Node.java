@@ -1,4 +1,4 @@
-package com.practice.Node;
+package com.practice.stack;
 
 public class Node {
   public Node next;

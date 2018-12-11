@@ -1,6 +1,6 @@
 package com.practice.queue;
 
-import com.practice.Node.Node;
+import com.practice.stack.Node;
 
 public class QueueImplementSimple {
   public Node first;

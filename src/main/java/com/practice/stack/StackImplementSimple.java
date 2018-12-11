@@ -1,7 +1,5 @@
 package com.practice.stack;
 
-import com.practice.Node.Node;
-
 public class StackImplementSimple {
   public Node top;
 
