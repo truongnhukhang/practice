@@ -1,6 +1,6 @@
 package com.practice.arrayAndString;
 
-public class ArrayAndStringPractice {
+public class RemoveDuplicatesString {
   public static void main(String[] args) {
     System.out.println(removeDuplicates("aavbnnn".toCharArray()));
     System.out.println(removeDuplicates("ababa".toCharArray()));
