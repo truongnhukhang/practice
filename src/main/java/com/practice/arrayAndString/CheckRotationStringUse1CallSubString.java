@@ -14,9 +14,19 @@ public class CheckRotationStringUse1CallSubString {
   public boolean isRotation(String s1,String s2) {
     if(s1.length()!=s2.length())
       return false;
+    int startS1 = -1;
+    int startS2 = -1;
     for (int i = 0; i < s1.length(); i++) {
-      if(s1.charAt(i)==s2.charAt(0)) {
-        
+      for (int j = 0; j < s2.length(); j++) {
+        if(s1.charAt(i)==s2.charAt(j)) {
+          startS1 = i;
+          startS2 = j;
+          break;
+        } else {
+          startS1 = 0;
+          startS2 = 0;
+          break;
+        }
       }
     }
     return false;
