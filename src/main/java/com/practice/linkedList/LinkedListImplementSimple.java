@@ -42,6 +42,41 @@ public class LinkedListImplementSimple {
   }
 
   public void removeDuplicateNodeUnsortedlist() {
+    Node tmp = head;
+    Node prv = head;
+    while(tmp!=null) {
+      Node cursor = tmp.next;
+      while(cursor!=null) {
+        if(!tmp.data.equalsIgnoreCase(cursor.data)) {
+          prv = cursor;
+        } else {
+          prv.next = cursor.next;
+        }
+        cursor = cursor.next;
+      }
+      tmp = tmp.next;
+      prv = tmp;
+    }
+  }
 
+  public String getNthElementFromLastIndex(int indexFromLast) {
+    int count = 0;
+    Node tmp = head;
+    while(tmp!=null) {
+      tmp=tmp.next;
+      count++;
+    }
+    tmp = head;
+    int index = count-indexFromLast+1;
+    count=0;
+    while (tmp!=null) {
+      count++;
+      if(index==count) {
+        return tmp.data;
+      } else {
+        tmp = tmp.next;
+      }
+    }
+    return "";
   }
 }
