@@ -79,4 +79,13 @@ public class LinkedListImplementSimple {
     }
     return "";
   }
+
+  public void removeNodeWithoutHeadOnlyAccessRemovedNode(Node node) {
+    Node cursor = node;
+    while (cursor!=null) {
+      Node temp = node;
+      cursor =
+      cursor = cursor.next;
+    }
+  }
 }
