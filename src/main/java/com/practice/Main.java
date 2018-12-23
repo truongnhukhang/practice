@@ -16,14 +16,26 @@ public class Main {
         linkedListImplementSimple.insert("B");
         linkedListImplementSimple.insert("C");
         linkedListImplementSimple.insert("D");
-        linkedListImplementSimple.insert("D");
         linkedListImplementSimple.insert("E");
+//        linkedListImplementSimple.insert("B");
+//        linkedListImplementSimple.insert("B");
+//        linkedListImplementSimple.insert("B");
+//        linkedListImplementSimple.insert("B");
+//        linkedListImplementSimple.insert("C");
+//        linkedListImplementSimple.insert("D");
+//        linkedListImplementSimple.insert("D");
+//        linkedListImplementSimple.insert("D");
+//        linkedListImplementSimple.insert("E");
+//        linkedListImplementSimple.insert("E");
 
 //        linkedListImplementSimple.delete("B");
 //        linkedListImplementSimple.delete("C");
 //        linkedListImplementSimple.delete("A");
-        linkedListImplementSimple.delete("D");
-        linkedListImplementSimple.println();
-
+//        linkedListImplementSimple.delete("D");
+        System.out.println(linkedListImplementSimple.getNthElementFromLastIndex(5));
+        System.out.println(linkedListImplementSimple.getNthElementFromLastIndex(4));
+        System.out.println(linkedListImplementSimple.getNthElementFromLastIndex(3));
+        System.out.println(linkedListImplementSimple.getNthElementFromLastIndex(2));
+        System.out.println(linkedListImplementSimple.getNthElementFromLastIndex(1));
     }
 }
