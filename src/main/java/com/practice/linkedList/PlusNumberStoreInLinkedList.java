@@ -10,9 +10,8 @@ public class PlusNumberStoreInLinkedList {
     num1.insert(9);
     num1.insert(9);
     LinkedListImplementSimple<Integer> num2 = new LinkedListImplementSimple<>();
+    num2.insert(0);
     num2.insert(1);
-    num2.insert(0);
-    num2.insert(0);
     plus(num1,num2).println();
   }
 
