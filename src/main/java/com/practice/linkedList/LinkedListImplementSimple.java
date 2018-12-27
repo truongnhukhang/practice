@@ -1,10 +1,10 @@
 package com.practice.linkedList;
 
-public class LinkedListImplementSimple {
-  Node head;
-  Node tail;
+public class LinkedListImplementSimple<T> {
+  Node<T> head;
+  Node<T> tail;
 
-  public void insert(String data) {
+  public Node insert(T data) {
     Node node = new Node();
     node.data = data;
     if(head==null) {
@@ -13,9 +13,10 @@ public class LinkedListImplementSimple {
       tail.next = node;
       tail = node;
     }
+    return node;
   }
 
-  public void delete(String data) {
+  public void delete(T data) {
     Node tmp = head;
     Node prv = null;
     while(tmp!=null) {
@@ -47,7 +48,7 @@ public class LinkedListImplementSimple {
     while(tmp!=null) {
       Node cursor = tmp.next;
       while(cursor!=null) {
-        if(!tmp.data.equalsIgnoreCase(cursor.data)) {
+        if(!tmp.data.equals(cursor.data)) {
           prv = cursor;
         } else {
           prv.next = cursor.next;
@@ -59,9 +60,9 @@ public class LinkedListImplementSimple {
     }
   }
 
-  public String getNthElementFromLastIndex(int indexFromLast) {
+  public T getNthElementFromLastIndex(int indexFromLast) {
     int count = 0;
-    Node tmp = head;
+    Node<T> tmp = head;
     while(tmp!=null) {
       tmp=tmp.next;
       count++;
@@ -77,15 +78,20 @@ public class LinkedListImplementSimple {
         tmp = tmp.next;
       }
     }
-    return "";
+    return null;
   }
 
-  public void removeNodeWithoutHeadOnlyAccessRemovedNode(Node node) {
-    Node cursor = node;
-    while (cursor!=null) {
-      Node temp = node;
-      cursor =
-      cursor = cursor.next;
+  public void removeNodeWithoutHeadOnlyAccessRemovedNode(Node<T> node) {
+    while (node!=null) {
+      if(node.next==null) {
+        node.data = null;
+        break;
+      } else {
+        T temp = node.next.data;
+        node.next.data = node.data;
+        node.data = temp;
+      }
+      node = node.next;
     }
   }
 }

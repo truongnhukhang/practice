@@ -1,8 +1,8 @@
 package com.practice.linkedList;
 
-public class Node {
-  String data;
-  Node next;
+public class Node<T> {
+  T data;
+  Node<T> next;
 
 
 }

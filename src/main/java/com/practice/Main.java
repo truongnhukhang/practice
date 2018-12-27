@@ -1,6 +1,7 @@
 package com.practice;
 
 import com.practice.linkedList.LinkedListImplementSimple;
+import com.practice.linkedList.Node;
 import com.practice.queue.QueueImplementSimple;
 import com.practice.sort.MergeSortImplementSimple;
 import com.practice.stack.StackImplementSimple;
@@ -11,12 +12,14 @@ public class Main {
 
     public static void main(String[] args) {
 	// write your code here
-        LinkedListImplementSimple linkedListImplementSimple = new LinkedListImplementSimple();
+        LinkedListImplementSimple<String> linkedListImplementSimple = new LinkedListImplementSimple();
         linkedListImplementSimple.insert("A");
         linkedListImplementSimple.insert("B");
-        linkedListImplementSimple.insert("C");
+        Node node = linkedListImplementSimple.insert("C");
         linkedListImplementSimple.insert("D");
         linkedListImplementSimple.insert("E");
+        linkedListImplementSimple.removeNodeWithoutHeadOnlyAccessRemovedNode(node);
+        linkedListImplementSimple.println();
 //        linkedListImplementSimple.insert("B");
 //        linkedListImplementSimple.insert("B");
 //        linkedListImplementSimple.insert("B");
@@ -32,10 +35,6 @@ public class Main {
 //        linkedListImplementSimple.delete("C");
 //        linkedListImplementSimple.delete("A");
 //        linkedListImplementSimple.delete("D");
-        System.out.println(linkedListImplementSimple.getNthElementFromLastIndex(5));
-        System.out.println(linkedListImplementSimple.getNthElementFromLastIndex(4));
-        System.out.println(linkedListImplementSimple.getNthElementFromLastIndex(3));
-        System.out.println(linkedListImplementSimple.getNthElementFromLastIndex(2));
-        System.out.println(linkedListImplementSimple.getNthElementFromLastIndex(1));
+
     }
 }
