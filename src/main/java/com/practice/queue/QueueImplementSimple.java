@@ -1,13 +1,12 @@
 package com.practice.queue;
 
-import com.practice.stack.Node;
 
-public class QueueImplementSimple {
-  public Node first;
-  public Node last;
+public class QueueImplementSimple<T> {
+  public Node<T> first;
+  public Node<T> last;
 
-  public void add(String data) {
-    Node tmp = new Node();
+  public void add(T data) {
+    Node<T> tmp = new Node<>();
     tmp.data = data;
     if(first==null) {
       first = last = tmp;
@@ -17,8 +16,8 @@ public class QueueImplementSimple {
     }
   }
 
-  public String get() {
-    String data = first.data;
+  public T get() {
+    T data = first.data;
     first = first.prv;
     return data;
   }

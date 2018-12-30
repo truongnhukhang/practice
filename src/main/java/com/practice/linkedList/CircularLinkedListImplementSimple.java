@@ -4,7 +4,7 @@ package com.practice.linkedList;
  * Created by truongnhukhang on 12/28/18.
  */
 public class CircularLinkedListImplementSimple<T> {
-  Node<T> head;
+  public Node<T> head;
   Node<T> current;
 
   public void insert(T data) {

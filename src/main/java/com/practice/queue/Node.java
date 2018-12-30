@@ -1,7 +1,7 @@
 package com.practice.queue;
 
-/**
- * Created by truongnhukhang on 12/7/18.
- */
-public class Node {
+public class Node<T> {
+  public Node<T> next;
+  public Node<T> prv;
+  public T data;
 }

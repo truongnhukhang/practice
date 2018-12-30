@@ -1,7 +1,7 @@
 package com.practice.stack;
 
-public class Node {
-  public Node next;
-  public Node prv;
-  public String data;
+public class Node<T> {
+  public Node<T> next;
+  public Node<T> prv;
+  public T data;
 }
