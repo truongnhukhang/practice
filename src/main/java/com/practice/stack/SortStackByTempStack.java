@@ -7,6 +7,7 @@ public class SortStackByTempStack {
     sources.put(1);
     sources.put(2);
     sources.put(6);
+    sources.put(5);
     StackImplementSimple<Integer> result = sortStack(sources);
     while (result.peek()!=null) {
       System.out.println(result.pop());
@@ -27,7 +28,7 @@ public class SortStackByTempStack {
   }
 
   private static void findTheRightPosition(Integer tempSource, StackImplementSimple<Integer> result, StackImplementSimple<Integer> source) {
-    if(tempSource<result.peek()) {
+    if(result.peek()==null || tempSource<result.peek()) {
       result.put(tempSource);
     } else {
       source.put(result.pop());
