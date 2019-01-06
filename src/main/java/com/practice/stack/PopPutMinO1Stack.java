@@ -3,13 +3,13 @@ package com.practice.stack;
 public class PopPutMinO1Stack extends StackImplementSimple<PopPutMinO1Stack.NodeMin> {
 
   @Override
-  public void add(NodeMin data) {
+  public void put(NodeMin data) {
     if(top!=null) {
       data.min = Math.min(data.data,getMin());
     } else {
       data.min = data.data;
     }
-    super.add(data);
+    super.put(data);
   }
 
   public Integer getMin() {

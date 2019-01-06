@@ -4,22 +4,22 @@ public class PopPutMinO1Stack_v2 extends StackImplementSimple<Integer> {
   StackImplementSimple<Integer> minStack = new StackImplementSimple<>();
 
   @Override
-  public void add(Integer data) {
+  public void put(Integer data) {
     Integer currentMin = minStack.peek();
     if (currentMin != null && data <= currentMin) {
-      minStack.add(data);
+      minStack.put(data);
     }
     if(currentMin==null) {
-      minStack.add(data);
+      minStack.put(data);
     }
-    super.add(data);
+    super.put(data);
   }
 
   @Override
-  public Integer get() {
-    Integer result = super.get();
+  public Integer pop() {
+    Integer result = super.pop();
     if (result.equals(getMin())) {
-      minStack.get();
+      minStack.pop();
     }
     return result;
   }

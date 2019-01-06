@@ -9,15 +9,15 @@ public class SetOfStacks<T> {
     if(stackList.size()==0 || stackList.getLast().emptySlots==0) {
       StackImplementSimple<T> stackImplementSimple = new StackImplementSimple<>();
       stackList.add(stackImplementSimple);
-      stackImplementSimple.add(data);
+      stackImplementSimple.put(data);
     } else {
-      stackList.getLast().add(data);
+      stackList.getLast().put(data);
     }
   }
 
   public T pop() {
     if(stackList.size()!=0) {
-      T result = stackList.getLast().get();
+      T result = stackList.getLast().pop();
       if(stackList.getLast().top==null) {
         stackList.removeLast();
       }

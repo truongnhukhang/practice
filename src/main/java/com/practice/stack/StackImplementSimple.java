@@ -3,7 +3,7 @@ package com.practice.stack;
 public class StackImplementSimple<T> {
   public Node<T> top;
   public int emptySlots = 5;
-  public void add(T data) {
+  public void put(T data) {
     Node<T> temp = new Node<>();
     temp.data = data;
     temp.next = top;
@@ -11,10 +11,13 @@ public class StackImplementSimple<T> {
     emptySlots--;
   }
 
-  public T get() {
-    T data = top.data;
-    top = top.next;
-    return data;
+  public T pop() {
+    if(top!=null) {
+      T data = top.data;
+      top = top.next;
+      return data;
+    }
+    return null;
   }
 
   public T peek() {
