@@ -30,4 +30,12 @@ public class BinarySearchTreeImplementSimple<T extends Comparable<T>> {
     }
   }
 
+  private void inOrderPrint() {
+
+  }
+
+  private void inOrder() {
+
+  }
+
 }
