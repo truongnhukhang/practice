@@ -6,6 +6,7 @@ import com.practice.linkedList.Node;
 import com.practice.queue.QueueImplementSimple;
 import com.practice.sort.MergeSortImplementSimple;
 import com.practice.stack.*;
+import com.practice.tree.BinarySearchTreeImplementSimple;
 
 import java.util.Arrays;
 
@@ -22,14 +23,14 @@ public class Main {
 //        popPutMinO1Stack.put(new PopPutMinO1Stack.NodeMin(1));
 //        popPutMinO1Stack.pop();
 //        System.out.println(popPutMinO1Stack.getMin());
-      MyQueueByStack<String> stringMyQueueByStack = new MyQueueByStack<>();
-      stringMyQueueByStack.put("A");
-      stringMyQueueByStack.put("B");
-      stringMyQueueByStack.put("C");
-      stringMyQueueByStack.put("D");
-      System.out.println(stringMyQueueByStack.pop());
-      System.out.println(stringMyQueueByStack.pop());
-      System.out.println(stringMyQueueByStack.pop());
-      System.out.println(stringMyQueueByStack.pop());
+      BinarySearchTreeImplementSimple<Integer> bstInteger = new BinarySearchTreeImplementSimple<>();
+      bstInteger.insert(10);
+      bstInteger.insert(5);
+      bstInteger.insert(15);
+      bstInteger.insert(4);
+      bstInteger.insert(6);
+      bstInteger.insert(11);
+      bstInteger.insert(16);
+      bstInteger.levelOrderPrint();
     }
 }
