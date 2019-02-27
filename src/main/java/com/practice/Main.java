@@ -29,8 +29,13 @@ public class Main {
       bstInteger.insert(15);
       bstInteger.insert(4);
       bstInteger.insert(6);
-      bstInteger.insert(11);
+      bstInteger.insert(13);
+      bstInteger.insert(12);
+      bstInteger.insert(14);
+      bstInteger.insert(17);
       bstInteger.insert(16);
+      bstInteger.insert(18);
+      bstInteger.insert(19);
 
       bstInteger.levelOrderPrint();
       System.out.println(bstInteger.isBalanceTree());
