@@ -93,7 +93,21 @@ public class BinarySearchTreeImplementSimple<T extends Comparable<T>> {
       levelOrder(node.leftChild);
       levelOrder(node.rightChild);
     }
+  }
 
+  public int height() {
+    return heightFromNode(root);
+  }
 
+  private int heightFromNode(Node node) {
+    int leftHeight = 0;
+    int rightHeight = 0;
+    if(node.leftChild!=null) {
+      leftHeight = heightFromNode(node.leftChild);
+    }
+    if(node.rightChild!=null) {
+      rightHeight = heightFromNode(node.rightChild);
+    }
+    return 1 + Math.max(leftHeight,rightHeight);
   }
 }

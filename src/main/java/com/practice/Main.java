@@ -31,6 +31,9 @@ public class Main {
       bstInteger.insert(6);
       bstInteger.insert(11);
       bstInteger.insert(16);
+      bstInteger.insert(17);
+      bstInteger.insert(18);
       bstInteger.levelOrderPrint();
+      System.out.println(bstInteger.height());
     }
 }
