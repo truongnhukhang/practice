@@ -110,4 +110,20 @@ public class BinarySearchTreeImplementSimple<T extends Comparable<T>> {
     }
     return 1 + Math.max(leftHeight,rightHeight);
   }
+
+  public boolean isBalanceTree() {
+    return isBalanceFromNode(root);
+  }
+
+  private boolean isBalanceFromNode(Node node) {
+    int leftHeight = 0;
+    int rightHeight = 0;
+    if(node.leftChild!=null) {
+      leftHeight = heightFromNode(node.leftChild);
+    }
+    if(node.rightChild!=null) {
+      rightHeight = heightFromNode(node.rightChild);
+    }
+    return Math.abs(leftHeight-rightHeight) < 2;
+  }
 }
