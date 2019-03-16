@@ -1,5 +1,10 @@
 package com.practice.tree;
 
+import com.practice.queue.QueueImplementSimple;
+
+import java.util.ArrayDeque;
+import java.util.Queue;
+
 /**
  * Created by truongnhukhang on 1/21/19.
  */
@@ -78,22 +83,27 @@ public class BinarySearchTreeImplementSimple<T extends Comparable<T>> {
   }
 
   public void levelOrderPrint() {
-    System.out.println(root.value);
-    levelOrder(root);
+    Queue<Node> queue = new ArrayDeque<>();
+    queue.add(root);
+    levelOrder(queue);
   }
 
-  private void levelOrder(Node node) {
-    if(node!=null) {
+  private void levelOrder(Queue<Node> queue) {
+    Node node = queue.poll();
+    while (node!=null) {
+      System.out.println(node.value);
       if(node.leftChild!=null) {
-        System.out.println(node.leftChild.value);
+        queue.add(node.leftChild);
       }
       if(node.rightChild!=null) {
-        System.out.println(node.rightChild.value);
+        queue.add(node.rightChild);
       }
-      levelOrder(node.leftChild);
-      levelOrder(node.rightChild);
+      node = queue.poll();
     }
+
   }
+
+
 
   public int height() {
     return heightFromNode(root);

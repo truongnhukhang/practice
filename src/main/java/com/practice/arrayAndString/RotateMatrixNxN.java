@@ -49,7 +49,7 @@ public class RotateMatrixNxN {
       return matrixNxN;
     int length = matrixNxN.length;
     int maxIndex = length-1;
-    long middle = Math.round(length*1.0/2);
+    long middle = Math.round(length/2);
     for (int i = 0; i < length-middle; i++) {
       for (int j = 0; j < middle; j++) {
         swapPoint(matrixNxN,new int[]{i,j},new int[]{j,maxIndex-i});
