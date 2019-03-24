@@ -100,7 +100,6 @@ public class BinarySearchTreeImplementSimple<T extends Comparable<T>> {
       }
       node = queue.poll();
     }
-
   }
 
 
@@ -135,5 +134,61 @@ public class BinarySearchTreeImplementSimple<T extends Comparable<T>> {
       rightHeight = heightFromNode(node.rightChild);
     }
     return Math.abs(leftHeight-rightHeight) < 2;
+  }
+
+  public void delete(T t) {
+    Node temp = root;
+    Node deleteNode = null;
+    Node prv = null;
+    boolean isleft = false;
+    while (temp!=null) {
+      if(temp.value.compareTo(t)<0) {
+        prv = temp;
+        temp= temp.leftChild;
+        isleft = true;
+      } else if(temp.value.compareTo(t)>0) {
+        prv = temp;
+        temp=temp.rightChild;
+        isleft = false;
+      } else {
+        deleteNode = temp;
+        if(deleteNode.leftChild==null && deleteNode.rightChild==null) {
+          if(isleft) {
+            prv.leftChild = null;
+          } else {
+            prv.rightChild = null;
+          }
+        } else if(deleteNode.leftChild!=null && deleteNode.rightChild!=null) {
+          // find the min node of right sub tree
+          Node prvMinNode = deleteNode;
+          Node minNode = deleteNode.rightChild;
+          while (true) {
+            if(minNode.leftChild!=null) {
+              prvMinNode = minNode;
+              minNode = minNode.leftChild;
+            } else {
+              deleteNode.value = minNode.value;
+              prvMinNode.leftChild = null;
+              break;
+            }
+          }
+
+        } else {
+          if(isleft) {
+            if(deleteNode.leftChild!=null) {
+              prv.leftChild = deleteNode.leftChild;
+            } else {
+              prv.leftChild = deleteNode.rightChild;
+            }
+          } else  {
+            if(deleteNode.leftChild!=null) {
+              prv.rightChild = deleteNode.leftChild;
+            } else {
+              prv.rightChild = deleteNode.rightChild;
+            }
+          }
+        }
+      }
+    }
   }
 }

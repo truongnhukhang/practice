@@ -38,6 +38,6 @@ public class Main {
       bstInteger.insert(19);
 
       bstInteger.levelOrderPrint();
-      System.out.println(bstInteger.isBalanceTree());
+
     }
 }
