@@ -37,7 +37,9 @@ public class Main {
       bstInteger.insert(18);
       bstInteger.insert(19);
 
-      bstInteger.levelOrderPrint();
+//      bstInteger.levelOrderPrint();
+      bstInteger.delete(13);
+      bstInteger.inOrderPrint();
 
     }
 }

@@ -137,63 +137,75 @@ public class BinarySearchTreeImplementSimple<T extends Comparable<T>> {
   }
 
   public void delete(T t) {
-    Node temp = root;
-    Node deleteNode = null;
-    Node prv = null;
-    boolean isleft = false;
+    Node<T> temp = root;
+    Node<T> deleteNode = null;
+    Node<T> prv = null;
+    boolean deleteNodeisleftSubtree = false;
     while (temp!=null) {
-      if(temp.value.compareTo(t)<0) {
+      if(t.compareTo(temp.value)<0) {
         prv = temp;
         temp= temp.leftChild;
-        isleft = true;
-      } else if(temp.value.compareTo(t)>0) {
+        deleteNodeisleftSubtree = true;
+      } else if(t.compareTo(temp.value)>0) {
         prv = temp;
         temp=temp.rightChild;
-        isleft = false;
+        deleteNodeisleftSubtree = false;
       } else {
         deleteNode = temp;
-        if(deleteNode.leftChild==null && deleteNode.rightChild==null) {
-          if(isleft) {
+        if(nodeDontHaveChildren(deleteNode)) {
+          if(deleteNodeisleftSubtree) {
             prv.leftChild = null;
+            break;
           } else {
             prv.rightChild = null;
+            break;
           }
-        } else if(deleteNode.leftChild!=null && deleteNode.rightChild!=null) {
+        } else if(deleteNodeHave2children(deleteNode)) {
           // find the min node of right sub tree
-          Node minNode = deleteNode.rightChild;
+          Node<T> minNode = deleteNode.rightChild;
           if(minNode.leftChild==null) {
             deleteNode.value = minNode.value;
             deleteNode.rightChild = minNode.rightChild;
+            break;
           } else {
             Node prvMinNode = null;
-            while (true) {
+            while (minNode.leftChild!=null) {
               prvMinNode = minNode;
-              if(minNode.leftChild!=null) {
-                minNode = minNode.leftChild;
-              } else {
-                break;
-              }
+              minNode = minNode.leftChild;
             }
             deleteNode.value = minNode.value;
             prvMinNode.leftChild = null;
+            break;
           }
 
         } else {
-          if(isleft) {
+          if(deleteNodeisleftSubtree) {
             if(deleteNode.leftChild!=null) {
               prv.leftChild = deleteNode.leftChild;
+              break;
             } else {
               prv.leftChild = deleteNode.rightChild;
+              break;
             }
           } else  {
             if(deleteNode.leftChild!=null) {
               prv.rightChild = deleteNode.leftChild;
+              break;
             } else {
               prv.rightChild = deleteNode.rightChild;
+              break;
             }
           }
         }
       }
     }
+  }
+
+  private boolean deleteNodeHave2children(Node<T> deleteNode) {
+    return deleteNode.leftChild!=null && deleteNode.rightChild!=null;
+  }
+
+  private boolean nodeDontHaveChildren(Node<T> deleteNode) {
+    return deleteNode.leftChild==null && deleteNode.rightChild==null;
   }
 }
