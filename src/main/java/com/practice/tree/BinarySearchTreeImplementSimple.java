@@ -160,17 +160,22 @@ public class BinarySearchTreeImplementSimple<T extends Comparable<T>> {
           }
         } else if(deleteNode.leftChild!=null && deleteNode.rightChild!=null) {
           // find the min node of right sub tree
-          Node prvMinNode = deleteNode;
           Node minNode = deleteNode.rightChild;
-          while (true) {
-            if(minNode.leftChild!=null) {
+          if(minNode.leftChild==null) {
+            deleteNode.value = minNode.value;
+            deleteNode.rightChild = minNode.rightChild;
+          } else {
+            Node prvMinNode = null;
+            while (true) {
               prvMinNode = minNode;
-              minNode = minNode.leftChild;
-            } else {
-              deleteNode.value = minNode.value;
-              prvMinNode.leftChild = null;
-              break;
+              if(minNode.leftChild!=null) {
+                minNode = minNode.leftChild;
+              } else {
+                break;
+              }
             }
+            deleteNode.value = minNode.value;
+            prvMinNode.leftChild = null;
           }
 
         } else {
