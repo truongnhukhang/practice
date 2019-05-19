@@ -39,14 +39,14 @@ public class FindMaxSubArray {
     MaxSub maxSubRight = findMaxSubArray(right,mid+1, a.length-1);
     maxSubRight.from = maxSubRight.from+fromIndex;
     maxSubRight.to = maxSubRight.to+toIndex;
-    MaxSub maxCross = findMaxSubArray(a,maxSubLeft.to,maxSubRight.from);
+    MaxSub maxCross = findMaxCross(a,maxSubLeft.to,maxSubRight.from,mid);
     maxCross.from = maxCross.from+fromIndex;
     maxCross.to = maxCross.to+toIndex;
     MaxSub maxSub = Arrays.asList(maxSubLeft,maxSubRight,maxCross).stream().max((o1, o2) -> o1.countMaxSub(a)-o2.countMaxSub(a)).get();
     return maxSub;
   }
 
-  private static MaxSub findMaxCross(int[] a,int fromIndex,int toIndex) {
+  private static MaxSub findMaxCross(int[] a,int fromIndex,int toIndex,int mid) {
     if(a.length==2) {
 
     }
