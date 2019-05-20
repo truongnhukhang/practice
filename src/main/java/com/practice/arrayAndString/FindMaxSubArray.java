@@ -21,7 +21,7 @@ public class FindMaxSubArray {
    int[] right = subArray(a,mid+1, a.length-1);
    MaxSub maxSubLeft = findMaxSubArray(left,0,mid);
    MaxSub maxSubRight = findMaxSubArray(right,mid+1,  a.length-1);
-   MaxSub maxSubCross = findMaxSubArray(a,maxSubLeft.to, maxSubRight.from);
+   MaxSub maxSubCross = findMaxCross(a,maxSubLeft.to, maxSubRight.from,mid);
    MaxSub maxSub = Arrays.asList(maxSubLeft,maxSubRight,maxSubCross).stream().max((o1, o2) -> o1.countMaxSub(a)-o2.countMaxSub(a)).get();
    return maxSub;
   }
@@ -29,6 +29,13 @@ public class FindMaxSubArray {
   private static MaxSub findMaxSubArray(int[] a,int fromIndex,int toIndex) {
     if(a.length==1) {
       return new MaxSub(fromIndex,toIndex);
+    }
+    if(a.length==2) {
+      MaxSub maxSubLeft = new MaxSub(fromIndex,fromIndex);
+      MaxSub maxSubRight = new MaxSub(toIndex,toIndex);
+      MaxSub maxCross = new MaxSub(fromIndex,toIndex);
+      MaxSub maxSub = Arrays.asList(maxSubLeft,maxSubRight,maxCross).stream().max((o1, o2) -> o1.countMaxSub(a)-o2.countMaxSub(a)).get();
+      return maxSub;
     }
     int mid = (a.length-1)  /2;
     int[] left = subArray(a,0,mid);
@@ -47,9 +54,34 @@ public class FindMaxSubArray {
   }
 
   private static MaxSub findMaxCross(int[] a,int fromIndex,int toIndex,int mid) {
-    if(a.length==2) {
-
+    int leftMax = 0;
+    int rightMax = 0;
+    MaxSub lefMaxSub = null;
+    for (int i = mid; i >=fromIndex ; i--) {
+      if(leftMax+a[i] >= leftMax) {
+        leftMax = leftMax + a[i];
+        lefMaxSub = new MaxSub(fromIndex,i);
+      } else {
+        break;
+      }
     }
+    MaxSub rightMaxSub = null;
+    for (int i = mid; i <=toIndex ; i++) {
+      if(leftMax+a[i] >= leftMax) {
+        rightMax = rightMax + a[i];
+        rightMaxSub = new MaxSub(fromIndex,i);
+      } else {
+        break;
+      }
+    }
+    MaxSub cross = new MaxSub(fromIndex,toIndex);
+    if(lefMaxSub!=null) {
+      cross.from = lefMaxSub.from;
+    }
+    if(rightMaxSub!=null) {
+      cross.to = rightMaxSub.to;
+    }
+    return cross;
   }
 
   private static int[] subArray(int[] a,int from,int to) {
