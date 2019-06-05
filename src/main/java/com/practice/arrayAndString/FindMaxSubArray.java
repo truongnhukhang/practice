@@ -26,6 +26,22 @@ public class FindMaxSubArray {
    return maxSub;
   }
 
+  private static MaxSub findMaxSubArray(int[] a,int fromIndex) {
+    if(a.length==1) {
+      return new MaxSub(fromIndex,fromIndex);
+    }
+    int mid = (a.length-1)  /2;
+    int[] left = subArray(a,0,mid);
+    int[] right = subArray(a,mid+1,  a.length-1);
+    MaxSub maxSubLeft = findMaxSubArray(left,0);
+    maxSubLeft.from = maxSubLeft.from + fromIndex;
+    maxSubLeft.to = maxSubLeft.to + fromIndex;
+    MaxSub maxSubRight = findMaxSubArray(right,mid+1);
+    maxSubRight.from = maxSubRight.from + fromIndex;
+    maxSubRight.to = maxSubRight.to + fromIndex;
+
+  }
+
   private static MaxSub findMaxSubArray(int[] a,int fromIndex,int toIndex) {
     if(a.length==1) {
       return new MaxSub(fromIndex,toIndex);
@@ -54,6 +70,9 @@ public class FindMaxSubArray {
   }
 
   private static MaxSub findMaxCross(int[] a,int fromIndex,int toIndex,int mid) {
+    if(fromIndex==toIndex+1) {
+
+    }
     int leftMax = 0;
     int rightMax = 0;
     MaxSub lefMaxSub = null;
