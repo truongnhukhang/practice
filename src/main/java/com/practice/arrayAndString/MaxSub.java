@@ -3,17 +3,11 @@ package com.practice.arrayAndString;
 public class MaxSub {
   int from;
   int to;
-  MaxSub(int from,int to) {
+  int count;
+  MaxSub(int from,int to,int count) {
     this.from = from;
     this.to = to;
-  }
-
-  int countMaxSub(int[] a) {
-    int count = 0;
-    for (int i = from; i < to ; i++) {
-      count = count + a[i];
-    }
-    return count;
+    this.count = count;
   }
 
   @Override
@@ -21,6 +15,7 @@ public class MaxSub {
     return "MaxSub{" +
         "from=" + from +
         ", to=" + to +
+        ", count=" + count +
         '}';
   }
 }
