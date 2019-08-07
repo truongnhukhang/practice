@@ -1,11 +1,11 @@
-package com.practice.arrayAndString;
+package com.practice.leetcode;
 
 import java.util.PriorityQueue;
 
-public class LC_FindKLargestElementInStream {
+public class FindKLargestElementInStream {
   public static void main(String[] args) {
     int[] arr = new int[]{4, 5, 8, 2};
-    KthLargest kthLargest = new LC_FindKLargestElementInStream.KthLargest(3, arr);
+    KthLargest kthLargest = new FindKLargestElementInStream.KthLargest(3, arr);
     System.out.println(kthLargest.add(3));
     System.out.println(kthLargest.add(5));
     System.out.println(kthLargest.add(10));

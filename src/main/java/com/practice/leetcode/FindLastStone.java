@@ -1,9 +1,9 @@
-package com.practice.arrayAndString;
+package com.practice.leetcode;
 
 import java.util.Collections;
 import java.util.PriorityQueue;
 
-public class LC_FindLastStone {
+public class FindLastStone {
   public static void main(String[] args) {
     int[] testdata = new int[]{1,3};
     System.out.println(lastStoneWeight(testdata));
