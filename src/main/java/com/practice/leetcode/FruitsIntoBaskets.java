@@ -13,6 +13,10 @@ public class FruitsIntoBaskets {
   public static void main(String[] args) {
     int[] tree = {3,3,3,1,2,1,1,2,3,3,4,4,3,3,5};
     System.out.println(totalFruit(tree));
+    tree = new int[]{6};
+    System.out.println(totalFruit(tree));
+    tree = new int[]{1,2,3,2,2};
+    System.out.println(totalFruit(tree));
   }
 
   public static int totalFruit(int[] tree) {
@@ -27,6 +31,9 @@ public class FruitsIntoBaskets {
         treeList.add(treeNumberFruitCount);
       }
     }
+    if(treeList.size()==1) {
+      return treeList.get(0)[1];
+    }
     int basketType1 = treeList.get(0)[0];
     int basketType2 = treeList.get(1)[0];
     int collectedFruit = treeList.get(0)[1]+ treeList.get(1)[1];
@@ -34,14 +41,14 @@ public class FruitsIntoBaskets {
     for (int i = 2 ; i < treeList.size() ; i++) {
       Integer[] tempPair = treeList.get(i);
       if(!tempPair[0].equals(basketType1) && !tempPair[0].equals(basketType2)) {
-        if(maxFruitCollected < collectedFruit) {
-          maxFruitCollected = collectedFruit;
-        }
         basketType1 = treeList.get(i-1)[0];
         basketType2 = tempPair[0];
         collectedFruit = treeList.get(i-1)[1]+tempPair[1];
       } else {
         collectedFruit = collectedFruit+tempPair[1];
+      }
+      if(maxFruitCollected < collectedFruit) {
+        maxFruitCollected = collectedFruit;
       }
     }
     return maxFruitCollected;
