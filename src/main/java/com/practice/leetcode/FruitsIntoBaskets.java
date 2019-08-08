@@ -16,7 +16,7 @@ public class FruitsIntoBaskets {
   }
 
   public static int totalFruit(int[] tree) {
-    List<Integer[]> treeList = new ArrayList<>();
+    List<Integer[]> treeList = new ArrayList<>(tree.length);
     Integer[] treeNumberFruitCount = {tree[0],1};
     treeList.add(treeNumberFruitCount);
     for (int i = 1; i < tree.length; i++) {
