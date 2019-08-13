@@ -35,6 +35,7 @@ public class LinkedListImplementSimple<T> {
   }
 
   public void println() {
+    System.out.println("Head : "+head.data + " - Tail: "+tail.data);
     Node tmp = head;
     while(tmp!=null) {
       System.out.println(tmp.data);
@@ -94,4 +95,21 @@ public class LinkedListImplementSimple<T> {
       node = node.next;
     }
   }
+
+  public void reserve() {
+    Node prv = head;
+    Node next = head.next;
+    head.next = null;
+    Node cursor = next;
+    while(cursor!=null) {
+      cursor = next.next;
+      next.next = prv;
+      prv = next;
+      next = cursor;
+    }
+    Node temp = head;
+    head = tail;
+    tail = temp;
+  }
+
 }
