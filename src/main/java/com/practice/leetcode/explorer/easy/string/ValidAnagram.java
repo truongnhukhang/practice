@@ -1,20 +1,38 @@
 package com.practice.leetcode.explorer.easy.string;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ValidAnagram {
   public static void main(String[] args) {
-    System.out.println(isAnagram("aa","bb"));
+    System.out.println(isAnagram("aabbcc","bbaac"));
   }
 
   static boolean isAnagram(String s, String t) {
-    char[] sChars = s.toCharArray();
-    char[] tChars = t.toCharArray();
-    int charsXor = 0;
-    for (int i = 0; i < sChars.length; i++) {
-      charsXor = charsXor ^ sChars[i];
+    Map<Character,Integer> charCount = new HashMap<>();
+    for (Character c : s.toCharArray()) {
+     if(charCount.get(c)==null) {
+       charCount.put(c,1);
+     } else {
+       charCount.put(c,charCount.get(c)+1);
+     }
     }
-    for (int i = 0; i < tChars.length; i++) {
-      charsXor = charsXor ^ tChars[i];
+    int tempCount = 0;
+    for (Character c : t.toCharArray()) {
+      if(charCount.get(c)==null) {
+        return false;
+      } else {
+        tempCount = charCount.get(c)-1;
+        if(tempCount==0) {
+          charCount.remove(c);
+        } else {
+          charCount.put(c,tempCount);
+        }
+      }
     }
-    return charsXor==0;
+    if(charCount.size()>0) {
+      return false;
+    }
+    return true;
   }
 }
