@@ -63,6 +63,6 @@ public class FirstBadVersion {
 
   public static boolean isBadVersion(int n) {
     count++;
-    return n>=Integer.MAX_VALUE;
+    return n>=124;
   }
 }
