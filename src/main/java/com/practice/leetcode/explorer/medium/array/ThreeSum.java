@@ -1,4 +1,4 @@
-package com.practice.leetcode.explorer.medium;
+package com.practice.leetcode.explorer.medium.array;
 
 import java.util.*;
 import java.util.stream.Collectors;
