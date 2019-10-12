@@ -46,20 +46,4 @@ public class ConstructBSTFromInAndPreOrder {
     return root;
   }
 
-  private static TreeNode buildSubTree(int[] preorder, int fromPre, int toPre, int[] inorder, int fromIn, int toIn) {
-    if(toPre<=fromPre) {
-      return new TreeNode(inorder[fromPre]);
-    }
-    int rootVal = inorder[fromIn];
-    TreeNode root = new TreeNode(rootVal);
-    int rootIndex = 0;
-    for (int i = fromPre; i <=toPre; i++) {
-      if(preorder[i]==rootVal) {
-        rootIndex = i;
-      }
-    }
-    root.left = buildSubTree(preorder,fromPre,rootIndex-1,inorder,fromIn+1,rootIndex);
-    root.right=buildSubTree(preorder,rootIndex+1,toPre,inorder,rootIndex+1,toIn);
-    return root;
-  }
 }
