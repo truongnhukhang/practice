@@ -9,7 +9,7 @@ import java.util.Map;
 public class CourseSchedule {
   public static void main(String[] args) {
     int numCourse = 4;
-    int[][] prerequisites = {{1,0},{0,2},{1,3}};
+    int[][] prerequisites = {{2,0},{1,0},{3,1},{3,2},{1,3}};
     CourseSchedule courseSchedule = new CourseSchedule();
     System.out.println(courseSchedule.canFinish(numCourse,prerequisites));
   }
@@ -39,28 +39,32 @@ public class CourseSchedule {
     }
     for (int i = 0; i < vertices.size(); i++) {
       if(vertices.get(i).color.equals("white")) {
-       return checkCycle(vertices.get(i),edges);
+        if(checkCycle(vertices.get(i),edges)) {
+          return false;
+        }
       }
     }
     return true;
   }
 
-  public boolean checkCycle(Vertex v,Map<Vertex,List<Vertex>> edges ) {
+  public boolean checkCycle(Vertex v, Map<Vertex,List<Vertex>> edges ) {
     v.color = "gray";
     if(edges.get(v)==null) {
-      return true;
+      v.color="black";
+      return false;
     }
     for (int i = 0; i < edges.get(v).size(); i++) {
-      if(edges.get(v).get(i).color.equals("white")) {
-        if(!checkCycle(edges.get(v).get(i),edges)) {
-          return false;
+      Vertex vertex = edges.get(v).get(i);
+      if(vertex.color.equals("white")) {
+        if(checkCycle(vertex,edges)) {
+          return true;
         }
-      } else if(edges.get(v).get(i).color.equals("gray")) {
-        return false;
+      } else if(vertex.color.equals("gray")) {
+        return true;
       }
     }
     v.color = "black";
-    return true;
+    return false;
   }
 
   class Vertex {
