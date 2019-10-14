@@ -1,4 +1,4 @@
-package com.practice.leetcode.explorer.medium.TreesAndGraphs;
+package com.practice.leetcode.explorer.medium.treesAndGraphs;
 
 public class ConstructBSTFromInAndPreOrder {
   public static void main(String[] args) {

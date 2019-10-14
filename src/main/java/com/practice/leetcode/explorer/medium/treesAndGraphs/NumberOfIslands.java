@@ -1,4 +1,4 @@
-package com.practice.leetcode.explorer.medium.TreesAndGraphs;
+package com.practice.leetcode.explorer.medium.treesAndGraphs;
 
 import java.util.ArrayList;
 import java.util.HashMap;
