@@ -19,7 +19,7 @@ public class DinnerResolveDeadLock {
       philosophers[i].start();
     }
     try {
-      Thread.sleep(1000);
+      Thread.sleep(10);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }

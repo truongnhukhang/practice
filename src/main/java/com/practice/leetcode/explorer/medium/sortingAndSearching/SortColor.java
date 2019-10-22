@@ -1,4 +1,4 @@
-package com.practice.leetcode;
+package com.practice.leetcode.explorer.medium.sortingAndSearching;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
