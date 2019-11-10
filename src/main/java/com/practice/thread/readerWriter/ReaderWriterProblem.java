@@ -1,7 +1,7 @@
 package com.practice.thread.readerWriter;
 
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
+import com.practice.thread.readerWriter.synchronize.Reader;
+import com.practice.thread.readerWriter.synchronize.Writer;
 
 public class ReaderWriterProblem {
   public static void main(String[] args) throws InterruptedException {
@@ -24,13 +24,13 @@ public class ReaderWriterProblem {
 //    reader5.start();
 //    reader6.start();
     writer.start();
-    Thread.sleep(10000);
-    reader1.interrupt();
-    reader2.interrupt();
-    reader3.interrupt();
+//    Thread.sleep(10000);
+//    reader1.interrupt();
+//    reader2.interrupt();
+//    reader3.interrupt();
 //    reader4.interrupt();
 //    reader5.interrupt();
 //    reader6.interrupt();
-    writer.interrupt();
+//    writer.interrupt();
   }
 }

@@ -1,4 +1,4 @@
-package com.practice.thread.readerWriter;
+package com.practice.thread.readerWriter.synchronize;
 
 public class Reader extends Thread {
 
