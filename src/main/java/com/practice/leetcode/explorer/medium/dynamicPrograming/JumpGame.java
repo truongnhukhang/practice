@@ -8,7 +8,7 @@ public class JumpGame {
   Map<String,Boolean> canJumpMap = new HashMap<>();
 
   public static void main(String[] args) {
-    int[] nums = {4,0,1,1,4,2,1};
+    int[] nums = {4,0,1,1,4,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
     JumpGame jumpGame = new JumpGame();
     System.out.println(jumpGame.canJump(nums));
   }
