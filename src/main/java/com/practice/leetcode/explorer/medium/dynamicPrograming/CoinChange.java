@@ -1,14 +1,14 @@
 package com.practice.leetcode.explorer.medium.dynamicPrograming;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class CoinChange {
   public static void main(String[] args) {
-    int[] coins = {1,2,5};
-    int amount = 11;
+    int[] coins = {186,419,83,408};
+    int amount = 6249;
     CoinChange coinChange = new CoinChange();
+    System.out.println(coinChange.coinChange(0,coins,amount));
     System.out.println(coinChange.coinChange(coins,amount));
   }
 
@@ -36,22 +36,73 @@ public class CoinChange {
       return 0;
     }
     List<List<Integer>> coinsSubset = generateSubsetCoins(coins,0);
-    coinsSubset.forEach(list -> {
-      System.out.println(list.stream().map(String::valueOf).collect(Collectors.joining(",")));
-    });
-    int minChange = -1;
+    SortedMap<Integer,Integer> subSetSum = new TreeMap<>();
     for (int i = 0; i < coinsSubset.size(); i++) {
-      int sumSubset = 0 ;
-      List<Integer> subSet = coinsSubset.get(i);
-      for (int j = 0; j < subSet.size(); j++) {
-        sumSubset = sumSubset + subSet.get(j);
+      int tempSum = 0;
+      List<Integer> subset = coinsSubset.get(i);
+      for (int j = 0; j < subset.size(); j++) {
+        tempSum = tempSum + subset.get(j);
       }
-      int curChange = coinChange(coinsSubset, subSet.size(),sumSubset,amount);
-      if(curChange!=-1 && (minChange==-1 || curChange < minChange)) {
-        minChange = curChange;
+      int chance = 1;
+      int subSum = tempSum;
+      while (subSum<=amount) {
+        if(!subSetSum.containsKey(subSum)) {
+          subSetSum.put(subSum,chance * subset.size());
+        } else {
+          int curSize = subSetSum.get(subSum);
+          if(curSize > subset.size()) {
+            subSetSum.put(subSum,chance * subset.size());
+          }
+        }
+        subSum = subSum+tempSum;
+        chance++;
       }
     }
+    int[] sum = new int[subSetSum.size()];
+    int index = 0;
+    for (Integer key : subSetSum.keySet()) {
+      sum[index] = key;
+      index++;
+    }
+    boolean[] memorize = new boolean[sum.length];
+    int minChange = Integer.MAX_VALUE;
+    for (int i = 0; i < sum.length; i++) {
+      int tempMinChance =  groupSum(sum,i,amount,memorize,subSetSum);
+      if(tempMinChance!=-1 && minChange > tempMinChance) {
+        minChange = tempMinChance;
+      }
+    }
+    if(minChange==Integer.MAX_VALUE) {
+      return -1;
+    }
     return minChange;
+  }
+
+  private int groupSum(int[] sum,int index,int amount,boolean[] memorize,Map<Integer,Integer> sumChange) {
+    if(index+1 > sum.length-1 || sum[index] > amount ) {
+      return -1;
+    }
+    if(sum[index]==amount) {
+      memorize[index] = true;
+      return sumChange.get(sum[index]);
+    }
+    int minChange = Integer.MAX_VALUE;
+    for (int i = index; i < sum.length; i++) {
+      int tempGroupChange = 0;
+      tempGroupChange = groupSum(sum,i+1,amount-sum[i],memorize,sumChange);
+      if(tempGroupChange!=-1 && minChange > tempGroupChange) {
+        minChange = tempGroupChange;
+      }
+      if(amount-sum[i] < sum[index]+1) {
+        break;
+      }
+    }
+    if(minChange==Integer.MAX_VALUE) {
+      return -1;
+    }
+    int change = sumChange.get(sum[index]) ;
+    memorize[index] = true;
+    return change+minChange;
   }
 
   private int coinChange(List<List<Integer>> coinsSubset,int change,int sumSubset,int amount) {
