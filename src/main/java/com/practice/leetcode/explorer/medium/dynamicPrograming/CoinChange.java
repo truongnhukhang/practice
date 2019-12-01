@@ -7,8 +7,12 @@ public class CoinChange {
   public static void main(String[] args) {
 //    int[] coins = {186,419,83,408};
 //    int amount = 6249;
-    int[] coins = {2};
-    int amount = 1;
+
+    int[] coins = {431,62,88,428};
+    int amount = 431*4+62*3+38*2+428;
+
+//    int[] coins = {2,3,5};
+//    int amount = 11;
     CoinChange coinChange = new CoinChange();
     System.out.println(coinChange.coinChange(0,coins,amount));
     System.out.println(coinChange.coinChange(coins,amount));
@@ -16,7 +20,8 @@ public class CoinChange {
   }
 
   public int coinChange(int[] coins,int amount) {
-    return coinChangeTopDown(coins,amount,new int[amount+1]);
+    Arrays.sort(coins);
+    return coinChangeDFS(coins.length-1,coins,amount);
   }
 
   private int coinChange(int idxCoin, int[] coins, int amount) {
@@ -92,4 +97,39 @@ public class CoinChange {
     }
     return cache[amount];
   }
+
+  public int coinChangeDFS(int index,int[] coins,int amount) {
+    if(amount==0) {
+      return 0;
+    }
+    if(index < 0 || amount < coins[index]) {
+      return -1;
+    }
+    int minChance = Integer.MAX_VALUE;
+    int tempMin = Integer.MAX_VALUE;
+    int maxChance = amount/coins[index];
+    int remain = amount-maxChance*coins[index];
+    boolean running = true;
+    while (running) {
+      int minChangeRemain = coinChangeDFS(index-1,coins,remain);
+      if(tempMin > minChangeRemain && minChangeRemain!=-1) {
+        tempMin = minChangeRemain+maxChance;
+        running = false;
+      } else {
+        maxChance--;
+        remain = amount - maxChance*coins[index];
+        if(remain < 0) {
+          running = false;
+        }
+      }
+    }
+    if(minChance > tempMin && tempMin!=-1) {
+      minChance = tempMin;
+    }
+    if(minChance!=Integer.MAX_VALUE) {
+      return minChance;
+    }
+    return -1;
+  }
+
 }
