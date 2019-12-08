@@ -2,49 +2,38 @@ package com.practice.leetcode.explorer.medium.array;
 
 public class LongestPalindromicSubstring {
   public static void main(String[] args) {
-    System.out.println(longestPalindrome("baba"));
-    System.out.println(longestPalindromeDP("aacdefcaa"));
+//    System.out.println(longestPalindrome("aacdeeeeefcaa"));
+    System.out.println(longestPalindromeDP("aacdedcaa"));
+    System.out.println(longestPalindromeDP("aacdeeeeefcaa"));
+    System.out.println(longestPalindromeDP("ababababa"));
+    System.out.println(longestPalindromeDP("dcdddddddd"));
+    System.out.println(longestPalindromeDP("aaaaaaa"));
+    System.out.println(longestPalindromeDP("aaaefcaaa"));
   }
 
 
   public static String longestPalindromeDP(String s) {
-    int[][] palindromeTable = new int[s.length()][s.length()];
-    char[] sText = s.toCharArray();
-    StringBuilder stringBuilder = new StringBuilder(s);
-    char[] sTextReverse = stringBuilder.reverse().toString().toCharArray();
-    int max = 0; int[] maxIndex = new int[2];
-    for (int i = 0; i < s.length() ; i++) {
-      for (int j = 0; j < s.length(); j++) {
-        if(sTextReverse[i]==sText[j]) {
-          int score = 1;
-          if(i-1 >= 0 && j-1 >=0 ) {
-            score = score + palindromeTable[i-1][j-1];
-          }
-          palindromeTable[i][j] = score;
-          if(max < score) {
-            max = score;
-            maxIndex[0] = i;
-            maxIndex[1] = j;
-          }
+    int len = s.length();
+    char[] chars = s.toCharArray();
+    boolean[][] mem = new boolean[len][len];
+    int max = 0; int left = 0 ; int right =0;
+    for (int i = 0; i < len; i++) {
+      for (int j = 0; j <= i; j++) {
+        if(i-j<2) {
+          mem[i][j] = chars[i]==chars[j];
         } else {
-          if(i-1 >= 0 && j-1 >=0) {
-
+          if(mem[i-1][j+1] && chars[i]==chars[j]) {
+            mem[i][j] = true;
           }
+        }
+        if(max < i-j && mem[i][j]) {
+          max = i-j;
+          left= j;
+          right=i;
         }
       }
     }
-    int prv = palindromeTable[maxIndex[0]][maxIndex[1]];
-    String longestPalindrome = s.charAt(maxIndex[1]) + "";
-    maxIndex[0]--;
-    maxIndex[1]--;
-    while (maxIndex[0] >=0 && maxIndex[1] >=0) {
-      if(palindromeTable[maxIndex[0]][maxIndex[1]] > 0) {
-        longestPalindrome = s.charAt(maxIndex[1]) + longestPalindrome;
-      }
-      maxIndex[0]--;
-      maxIndex[1]--;
-    }
-    return longestPalindrome;
+    return s.substring(left,right+1);
   }
 
   public static String longestPalindrome(String s) {
