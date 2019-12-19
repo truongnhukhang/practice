@@ -1,6 +1,8 @@
 package com.practice.leetcode.explorer;
 
 import java.util.Arrays;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 
 public class TwoCityScheduling {
@@ -16,16 +18,22 @@ public class TwoCityScheduling {
     Cost[] costBs = new Cost[costsLen];
     for (int i = 0; i < costsLen; i++) {
       Cost costA = new Cost();
+      costA.costCompare = costs[i][0]-costs[i][1];
       costA.cost = costs[i][0];
       costA.index = i;
       costAs[i] = costA;
       Cost costB = new Cost();
+      costB.costCompare = costs[i][1]-costs[i][0];
       costB.cost = costs[i][1];
       costB.index = i;
       costBs[i] = costB;
     }
     Arrays.sort(costAs);
     Arrays.sort(costBs);
+    Stream.of(costAs).forEach(cost -> System.out.print(" "+cost.cost+"-"+cost.index));
+    System.out.println("");
+    Stream.of(costBs).forEach(cost -> System.out.print(" "+cost.cost+"-"+cost.index));
+    System.out.println("");
     int[] flag = new int[costsLen];
     int indexA = 0;int countA = costsLen/2;
     int indexB = 0;int countB = costsLen/2;
@@ -77,12 +85,13 @@ public class TwoCityScheduling {
 
   public class Cost implements Comparable {
     public int cost;
+    public int costCompare;
     public int index;
 
     @Override
     public int compareTo(Object o) {
       Cost costB = (Cost) o;
-      return this.cost-costB.cost;
+      return this.costCompare-costB.costCompare;
     }
   }
 }
