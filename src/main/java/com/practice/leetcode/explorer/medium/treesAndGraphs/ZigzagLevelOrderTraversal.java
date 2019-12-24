@@ -12,9 +12,9 @@ public class ZigzagLevelOrderTraversal {
     TreeNode root = new TreeNode(2);
     root.left = new TreeNode(1);
     root.left.left = new TreeNode(2);
-//    root.left.right = new TreeNode(4);
+    root.left.right = new TreeNode(4);
     root.right = new TreeNode(10);
-//    root.right.left = new TreeNode(3);
+    root.right.left = new TreeNode(3);
     root.right.right = new TreeNode(15);
     ZigzagLevelOrderTraversal zigzagLevelOrderTraversal = new ZigzagLevelOrderTraversal();
     zigzagLevelOrderTraversal.zigzagLevelOrder(root).stream().forEach(list -> {
