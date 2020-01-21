@@ -11,7 +11,7 @@ public class SkyLine {
 //    int[][] buildings = {{0,2,3},{2,5,3}};
 //    int[][] buildings = {{2,4,7},{2,4,5},{2,4,6}};
     int[][] buildings = {{2,4,70},{3,8,30},{6,100,41},{7,15,70},{10,30,102},{15,25,76},{60,80,91},{70,90,72},{85,120,59}};
-    getSkyline(buildings).stream().forEach(integers -> System.out.println(integers.get(0) + " - " + integers.get(1)));
+    getSkyLines(buildings).stream().forEach(integers -> System.out.println(integers.get(0) + " - " + integers.get(1)));
   }
   public static List<List<Integer>> getSkyline(int[][] buildings) {
     if(buildings.length==0) {
@@ -20,55 +20,95 @@ public class SkyLine {
     if(buildings.length==1) {
       return Arrays.asList(createPositionFrom2Number(buildings[0][0],buildings[0][2]),createPositionFrom2Number(buildings[0][1],0));
     }
+    int mostRight = 1; int height = 2 ; int mostLeft = 0;
     List<List<Integer>> skyLines = new ArrayList<>();
-    int[] prv = buildings[0];
-    int rightMost = prv[1];
-    skyLines.add(createPositionFrom2Number(prv[0],prv[2]));
+    skyLines.add(createPositionFrom2Number(buildings[0][0],buildings[0][2]));
+    PriorityQueue<int[]> pQueue = new PriorityQueue<>((b1,b2)->{return b2[height]-b1[height];});
+    int curRight = buildings[0][mostRight];
+    pQueue.add(buildings[0]);
     for (int i = 1; i < buildings.length; i++) {
-      int[] next = buildings[i];
-
-      // nextBuilding include prvBuilding : next[0]=prv[0] and next[1]>=prv[1] and next[2] >= prv[2]
-      if(next[0]==prv[0] && next[1] >= prv[1]) {
-        List<Integer> lastInserted = skyLines.get(skyLines.size()-1);
-        lastInserted.set(1,Math.max(next[2],lastInserted.get(1)));
+      int[] nextBuilding = buildings[i];
+      boolean added = false;
+      while (!pQueue.isEmpty() && !added) {
+        int[] maxBuilding = pQueue.peek();
+        if(maxBuilding[mostRight] < nextBuilding[mostLeft]) {
+          pQueue.poll();
+        } else {
+          if(nextBuilding[height] > maxBuilding[height]) {
+            if(nextBuilding[mostLeft]==maxBuilding[mostLeft]) {
+              // update the last
+              List<Integer> lastPoint = skyLines.get(skyLines.size()-1);
+              lastPoint.set(1,nextBuilding[height]);
+              added=true;
+            } else {
+              // add no affect
+              skyLines.add(createPositionFrom2Number(nextBuilding[mostLeft],nextBuilding[height]));
+              added=true;
+            }
+          } else if (nextBuilding[height] < maxBuilding[height] && nextBuilding[mostRight] > maxBuilding[mostRight]) {
+            // add normal affect
+            skyLines.add(createPositionFrom2Number(maxBuilding[mostRight],nextBuilding[height]));
+            added=true;
+            if(maxBuilding[mostLeft]==nextBuilding[mostLeft]) {
+              pQueue.poll();
+            }
+          } else {
+            added=true;
+            break;
+          }
+        }
       }
-      // nextBuilding dont affect by prvBuilding : next[0] > prv[0] and next[2] > prv[2]
-      if(next[0]>prv[0] && next[0] <= prv[1] && next[2] > prv[2]) {
-        skyLines.add(createPositionFrom2Number(next[0],next[2]));
+      if(!added) {
+        skyLines.add(createPositionFrom2Number(curRight,0));
+        skyLines.add(createPositionFrom2Number(nextBuilding[mostLeft],nextBuilding[height]));
       }
-      // nextBuilding affect by prvBuilding : next[0] <= prv[1] and next[1] > prv[1] and next[2] < prv[2]
-      if(next[0] <= prv[1] && next[1] > prv[1] && next[2] < prv[2]) {
-        skyLines.add(createPositionFrom2Number(prv[1],next[2]));
+      pQueue.offer(nextBuilding);
+      if(nextBuilding[mostRight] > curRight) {
+        curRight = nextBuilding[mostRight];
       }
-      // nextBuilding same and next to prvBuilding : next[0]==prv[1] and next[2]==prv[2]
-      if(next[0]==prv[1] && next[2]==prv[2]) {
-        skyLines.add(createPositionFrom2Number(next[0],next[2]));
-      }
-      // nextBuilding is separate the prvBuilding : next[0] > prv[1]
-      if(next[0] > rightMost) {
-        skyLines.add(createPositionFrom2Number(rightMost,0));
-        skyLines.add(createPositionFrom2Number(next[0],next[2]));
-      }
-      if(rightMost<next[1]) {
-        rightMost = next[1];
-      }
-      prv = next;
     }
-    skyLines.add(createPositionFrom2Number(rightMost,0));
-    Iterator<List<Integer>> iterator = skyLines.iterator();
-    List<Integer> prvList = iterator.next();
-    while (iterator.hasNext()) {
-      List<Integer> nextList = iterator.next();
-      if(nextList.get(1).equals(prvList.get(1))) {
-        iterator.remove();
-        continue;
-      }
-      prvList = nextList;
-    }
+    skyLines.add(createPositionFrom2Number(curRight,0));
     return skyLines;
   }
 
-
+  public static List<List<Integer>> getSkyLines(int[][] buildings) {
+    if(buildings.length==0) {
+      return new ArrayList<>();
+    }
+    if(buildings.length==1) {
+      return Arrays.asList(createPositionFrom2Number(buildings[0][0],buildings[0][2]),createPositionFrom2Number(buildings[0][1],0));
+    }
+    List<int[]> criticalPoints = new ArrayList<>();
+    for (int i = 0; i < buildings.length; i++) {
+      int[] building = buildings[i];
+      criticalPoints.add(new int[]{building[0],building[2]});
+      criticalPoints.add(new int[]{building[1],-building[2]});
+    }
+    criticalPoints.sort((o1, o2) -> {
+      if(o1[0]==o2[0]) {
+        return o2[1]-o1[1];
+      } else {
+        return o1[0]-o2[0];
+      }
+    });
+    List<List<Integer>> skyLines = new ArrayList<>();
+    PriorityQueue<Integer> height = new PriorityQueue<>(Collections.reverseOrder());
+    int prv = 0;height.offer(0);
+    for (int i = 0; i < criticalPoints.size(); i++) {
+      int[] point = criticalPoints.get(i);
+      if(point[1]>0) {
+        height.offer(point[1]);
+      } else {
+        height.remove(-point[1]);
+      }
+      int curMax = height.peek();
+      if(prv!=curMax) {
+        skyLines.add(createPositionFrom2Number(point[0],curMax));
+        prv=curMax;
+      }
+    }
+    return skyLines;
+  }
 
   public static List<Integer> createPositionFrom2Number(int x,int h) {
     return Arrays.asList(x,h);
