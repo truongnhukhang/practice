@@ -1,8 +1,8 @@
 package com.practice.leetcode.explorer.medium.design;
 
-import com.practice.leetcode.explorer.medium.treesAndGraphs.Node;
 import com.practice.leetcode.explorer.medium.treesAndGraphs.TreeNode;
 
+import java.util.Collections;
 import java.util.LinkedList;
 
 public class SerializeBST {
@@ -22,11 +22,55 @@ public class SerializeBST {
     root.right.left.right = new TreeNode(8);
     root.right.right = new TreeNode(5);
     SerializeBST serializeBST = new SerializeBST();
-    String data = serializeBST.serializeBrackets(root);
+    String data = serializeBST.serializePreOrder(root);
     System.out.println(data);
-    TreeNode temp = serializeBST.deserializeBrackets(data);
-    System.out.println(temp.val);
-    System.out.println(serializeBST.serializeBrackets(temp));
+    TreeNode node = serializeBST.deserializePreOrder(data);
+    data = serializeBST.serializePreOrder(node);
+    System.out.println(data);
+  }
+
+
+  public String serializePreOrder(TreeNode root) {
+    if(root==null) {
+      return "#";
+    }
+    StringBuilder stringBuilder = new StringBuilder();
+    stringBuilder.append(root.val);
+    stringBuilder.append(",");
+    serialPreOrderHelper(root.left,stringBuilder);
+    serialPreOrderHelper(root.right,stringBuilder);
+    return stringBuilder.toString();
+  }
+
+  public void serialPreOrderHelper(TreeNode root, StringBuilder stringBuilder) {
+    if(root==null) {
+      stringBuilder.append("#");
+      stringBuilder.append(",");
+    } else {
+      stringBuilder.append(root.val);
+      stringBuilder.append(",");
+      serialPreOrderHelper(root.left,stringBuilder);
+      serialPreOrderHelper(root.right,stringBuilder);
+    }
+  }
+
+  public TreeNode deserializePreOrder(String tree) {
+    LinkedList<String> nodeTexts = new LinkedList<>();
+    Collections.addAll(nodeTexts, tree.split(","));
+    return deserializePreOrderHelper(nodeTexts);
+  }
+  public TreeNode deserializePreOrderHelper(LinkedList<String> nodeTexts) {
+    String rootText = nodeTexts.getFirst();
+    if(rootText.equals("#")) {
+      nodeTexts.removeFirst();
+      return null;
+    } else {
+      TreeNode root = new TreeNode(Integer.valueOf(rootText));
+      nodeTexts.removeFirst();
+      root.left=deserializePreOrderHelper(nodeTexts);
+      root.right=deserializePreOrderHelper(nodeTexts);
+      return root;
+    }
   }
 
   public String serializeBrackets(TreeNode root) {
