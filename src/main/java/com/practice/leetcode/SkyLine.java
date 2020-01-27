@@ -13,63 +13,6 @@ public class SkyLine {
     int[][] buildings = {{2,4,70},{3,8,30},{6,100,41},{7,15,70},{10,30,102},{15,25,76},{60,80,91},{70,90,72},{85,120,59}};
     getSkyLines(buildings).stream().forEach(integers -> System.out.println(integers.get(0) + " - " + integers.get(1)));
   }
-  public static List<List<Integer>> getSkyline(int[][] buildings) {
-    if(buildings.length==0) {
-      return new ArrayList<>();
-    }
-    if(buildings.length==1) {
-      return Arrays.asList(createPositionFrom2Number(buildings[0][0],buildings[0][2]),createPositionFrom2Number(buildings[0][1],0));
-    }
-    int mostRight = 1; int height = 2 ; int mostLeft = 0;
-    List<List<Integer>> skyLines = new ArrayList<>();
-    skyLines.add(createPositionFrom2Number(buildings[0][0],buildings[0][2]));
-    PriorityQueue<int[]> pQueue = new PriorityQueue<>((b1,b2)->{return b2[height]-b1[height];});
-    int curRight = buildings[0][mostRight];
-    pQueue.add(buildings[0]);
-    for (int i = 1; i < buildings.length; i++) {
-      int[] nextBuilding = buildings[i];
-      boolean added = false;
-      while (!pQueue.isEmpty() && !added) {
-        int[] maxBuilding = pQueue.peek();
-        if(maxBuilding[mostRight] < nextBuilding[mostLeft]) {
-          pQueue.poll();
-        } else {
-          if(nextBuilding[height] > maxBuilding[height]) {
-            if(nextBuilding[mostLeft]==maxBuilding[mostLeft]) {
-              // update the last
-              List<Integer> lastPoint = skyLines.get(skyLines.size()-1);
-              lastPoint.set(1,nextBuilding[height]);
-              added=true;
-            } else {
-              // add no affect
-              skyLines.add(createPositionFrom2Number(nextBuilding[mostLeft],nextBuilding[height]));
-              added=true;
-            }
-          } else if (nextBuilding[height] < maxBuilding[height] && nextBuilding[mostRight] > maxBuilding[mostRight]) {
-            // add normal affect
-            skyLines.add(createPositionFrom2Number(maxBuilding[mostRight],nextBuilding[height]));
-            added=true;
-            if(maxBuilding[mostLeft]==nextBuilding[mostLeft]) {
-              pQueue.poll();
-            }
-          } else {
-            added=true;
-            break;
-          }
-        }
-      }
-      if(!added) {
-        skyLines.add(createPositionFrom2Number(curRight,0));
-        skyLines.add(createPositionFrom2Number(nextBuilding[mostLeft],nextBuilding[height]));
-      }
-      pQueue.offer(nextBuilding);
-      if(nextBuilding[mostRight] > curRight) {
-        curRight = nextBuilding[mostRight];
-      }
-    }
-    skyLines.add(createPositionFrom2Number(curRight,0));
-    return skyLines;
-  }
 
   public static List<List<Integer>> getSkyLines(int[][] buildings) {
     if(buildings.length==0) {
