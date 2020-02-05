@@ -16,6 +16,7 @@ public class GraphMain {
     graph.addEdge(a,b);
     graph.addEdge(b,a);
     graph.addEdge(b,c);
+    graph.addEdge(c,b);
     graph.addEdge(c,a);
     graph.addEdge(a,c);
     graph.addEdge(c,d);

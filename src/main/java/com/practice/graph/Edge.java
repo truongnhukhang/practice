@@ -7,4 +7,13 @@ public class Edge {
   public Node source;
   public Node des;
   public int weight;
+
+  public int getWeight() {
+    return weight;
+  }
+
+  @Override
+  public String toString() {
+    return source.val+"-"+des.val+" : "+weight;
+  }
 }

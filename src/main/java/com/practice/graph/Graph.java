@@ -33,5 +33,15 @@ public class Graph {
     edgeList.add(edge);
   }
 
+  public void addEdge(Node source,Node des,int weight) {
+    List<Node> nodes = edgesMap.computeIfAbsent(source, k->new LinkedList<>());
+    nodes.add(des);
+    Edge edge = new Edge();
+    edge.source=source;
+    edge.des=des;
+    edge.weight=weight;
+    edgeList.add(edge);
+  }
+
 
 }
