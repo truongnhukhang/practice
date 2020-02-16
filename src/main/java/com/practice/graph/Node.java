@@ -5,5 +5,6 @@ public class Node {
   Node p;
   int d;
   int f;
+  int low;
   String color;
 }
