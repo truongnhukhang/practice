@@ -39,7 +39,7 @@ public class ArticulationPoint {
     time[0]=1;
     root.color="gray";
     root.d = time[0];
-    root.low = 1;
+    root.low = time[0];
     int childCount = 0;
     for (int i = 0; i < edges.size(); i++) {
       Node n = edges.get(i);
@@ -47,7 +47,7 @@ public class ArticulationPoint {
         time[0]++;
         childCount++;
         n.d=time[0];
-        n.low=root.d;
+        n.low=time[0];
         dfs_find(n,time,results,graph);
       }
     }
@@ -67,7 +67,7 @@ public class ArticulationPoint {
         if (n.color.equals("white")) {
           time[0]++;
           n.d=time[0];
-          n.low=node.d;
+          n.low=time[0];
           dfs_find(n,time,results,graph);
           if(n.low<node.low) {
             node.low = n.low;
