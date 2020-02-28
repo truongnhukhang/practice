@@ -21,6 +21,7 @@ public class Knapsack01 {
     System.out.println(knapsack01.bruteForce(weights,profits,capacity,0));
     Integer[][] cache = new Integer[weights.length][capacity+1];
     System.out.println(knapsack01.topDown(weights,profits,capacity,0,cache));
+    System.out.println(knapsack01.bottomUp(weights,profits,capacity));
   }
 
 
@@ -55,6 +56,23 @@ public class Knapsack01 {
   }
 
   public int bottomUp(int[] weight,int[] profit,int capacity) {
+    int curMax = 0;
+    int[][] dp = new int[weight.length][capacity+1];
+    for(int i=1;i<=capacity;i++) {
+      if(i>=weight[0])
+      dp[0][i] = profit[0];
+    }
+    curMax = profit[0];
+    for (int i = 1; i < weight.length; i++) {
+      for(int j = 1; j<= capacity;j++) {
+        if(j>=weight[i]) {
+          dp[i][j] = Math.max(dp[i-1][j],dp[i-1][j-weight[i]]+profit[i]);
 
+        } else {
+          dp[i][j] = dp[i-1][j];
+        }
+      }
+    }
+    return dp[weight.length-1][capacity];
   }
 }
