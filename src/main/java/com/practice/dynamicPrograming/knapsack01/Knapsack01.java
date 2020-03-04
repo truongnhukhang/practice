@@ -62,7 +62,6 @@ public class Knapsack01 {
       if(i>=weight[0])
       dp[0][i] = profit[0];
     }
-    curMax = profit[0];
     for (int i = 1; i < weight.length; i++) {
       for(int j = 1; j<= capacity;j++) {
         if(j>=weight[i]) {
