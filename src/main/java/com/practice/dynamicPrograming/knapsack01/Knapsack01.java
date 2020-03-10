@@ -17,7 +17,7 @@ public class Knapsack01 {
     Knapsack01 knapsack01 = new Knapsack01();
     int[] weights = {2,3,1,4};
     int[] profits = {4,5,3,7};
-    int capacity = 7;
+    int capacity = 15;
     System.out.println(knapsack01.bruteForce(weights,profits,capacity,0));
     Integer[][] cache = new Integer[weights.length][capacity+1];
     System.out.println(knapsack01.topDown(weights,profits,capacity,0,cache));
@@ -78,17 +78,35 @@ public class Knapsack01 {
   public int bottomUpSaveMem(int[] weight,int[] profit,int capacity) {
     int[] dp = new int[capacity+1];
     int curMax = 0;
+    int[] prvMem = new int[capacity+1];
     for(int i=0;i<weight.length;i++) {
-      int prvP = dp[1];
       for (int j = 1; j <= capacity; j++) {
+        prvMem[j]=dp[j];
         if(weight[i] <= j) {
-          int minusProfit = j-weight[i]==j-1 && j!=1 ? prvP : dp[j-weight[i]];
-          int tempMax = Math.max(dp[j],Math.max(profit[i],profit[i]+minusProfit));
+          int tempMax = Math.max(dp[j],Math.max(profit[i],profit[i]+ prvMem[j-weight[i]]));
           if(curMax<tempMax) {
             curMax = tempMax;
           }
           if(dp[j] < tempMax) {
-            prvP = dp[j];
+            dp[j] = tempMax;
+          }
+        }
+      }
+    }
+    return curMax;
+  }
+
+  public int bottomUpSaveMem2(int[] weight,int[] profit,int capacity) {
+    int[] dp = new int[capacity+1];
+    int curMax = 0;
+    for(int i=0;i<weight.length;i++) {
+      for (int j = capacity; j > 0; j--) {
+        if(weight[i] <= j) {
+          int tempMax = Math.max(dp[j],Math.max(profit[i],profit[i]+ dp[j-weight[i]]));
+          if(curMax<tempMax) {
+            curMax = tempMax;
+          }
+          if(dp[j] < tempMax) {
             dp[j] = tempMax;
           }
         }
