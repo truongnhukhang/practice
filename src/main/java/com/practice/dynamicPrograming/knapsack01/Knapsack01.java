@@ -43,7 +43,6 @@ public class Knapsack01 {
       return 0;
     }
     if(cache[index][capacity]!=null) {
-      System.out.println("use cache");
       return cache[index][capacity];
     }
     if(weight[index] <= capacity) {
