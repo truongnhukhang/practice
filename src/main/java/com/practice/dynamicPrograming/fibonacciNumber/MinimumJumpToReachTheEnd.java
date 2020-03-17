@@ -6,11 +6,11 @@ import java.util.Map;
 public class MinimumJumpToReachTheEnd {
   public static void main(String[] args) {
     int[] nums = {1,1,3,0,2,9,3,0,1,3};
-    System.out.println(new MinimumJumpToReachTheEnd().findMind(nums.length-1,nums,new HashMap<>()));
-    System.out.println(new MinimumJumpToReachTheEnd().findMin(nums));
+    System.out.println(new MinimumJumpToReachTheEnd().findMindTopDown(nums.length-1,nums,new HashMap<>()));
+    System.out.println(new MinimumJumpToReachTheEnd().findMinBottomUp(nums));
   }
 
-  public int findMind(int index, int[] nums, Map<Integer,Integer> map) {
+  public int findMindTopDown(int index, int[] nums, Map<Integer,Integer> map) {
     if(index==0) {
       return 0;
     }
@@ -20,7 +20,7 @@ public class MinimumJumpToReachTheEnd {
     int min = Integer.MAX_VALUE;
     for (int i = index-1; i >= 0 ; i--) {
       if(nums[i]>=index-i) {
-        int temp = findMind(i,nums,map);
+        int temp = findMindTopDown(i,nums,map);
         if(temp!=Integer.MAX_VALUE && temp+1 < min) {
           min = temp+1;
         }
@@ -30,7 +30,7 @@ public class MinimumJumpToReachTheEnd {
     return min;
   }
 
-  public int findMin(int[] nums) {
+  public int findMinBottomUp(int[] nums) {
     int[] dp = new int[nums.length];
     for (int i = 1; i < dp.length ; i++) {
       if(nums[0]-i >=0) {
