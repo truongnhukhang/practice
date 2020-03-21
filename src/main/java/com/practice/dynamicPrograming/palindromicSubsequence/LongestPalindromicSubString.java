@@ -2,8 +2,9 @@ package com.practice.dynamicPrograming.palindromicSubsequence;
 
 public class LongestPalindromicSubString {
   public static void main(String[] args) {
-    String s = "babadada";
+    String s = "cbbd";
     System.out.println(new LongestPalindromicSubString().findMaxTopDown(0,s.length()-1,s,new Integer[s.length()][s.length()]));
+    System.out.println(new LongestPalindromicSubString().findMaxBottomUp(s));
   }
 
   public int findMaxTopDown(int start,int end,String s,Integer[][] table) {
@@ -31,20 +32,38 @@ public class LongestPalindromicSubString {
   }
 
   public int findMaxBottomUp(String s) {
+    int max = 1;
+    int maxI=0,maxJ = 0;
     boolean[][] dp = new boolean[s.length()][s.length()];
     for (int i = 0; i < s.length() ; i++) {
       for (int j = i; j >= 0; j--) {
         if(i==j) {
           dp[i][j]=true;
         } else {
-          if(j-i==1) {
-
+          if(i-j==1) {
+            if(s.charAt(j)==s.charAt(i)) {
+              dp[i][j]=true;
+              if(max < i-j+1) {
+                max = i-j+1;
+                maxI = i;
+                maxJ = j;
+              }
+            }
           } else {
+            if(s.charAt(j)==s.charAt(i)) {
+              dp[i][j] = dp[i-1][j+1];
+              if(dp[i][j] && max < i-j+1) {
+                max = i-j+1;
+                maxI = i;
+                maxJ = j;
+              }
+            }
 
           }
         }
-
       }
     }
+    System.out.println(s.substring(maxJ,maxI+1));
+    return max;
   }
 }
