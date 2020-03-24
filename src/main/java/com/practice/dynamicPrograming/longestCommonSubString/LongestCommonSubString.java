@@ -2,14 +2,14 @@ package com.practice.dynamicPrograming.longestCommonSubString;
 
 public class LongestCommonSubString {
   public static void main(String[] args) {
-    String s1 = "abdddd";
-    String s2 = "abcddc";
+    String s1 = "passport";
+    String s2 = "ppsspt";
     System.out.println(new LongestCommonSubString().findLongest(s1,s2,0,0,0,new Integer[s1.length()][s2.length()][Math.min(s1.length(),s2.length())]));
     System.out.println(new LongestCommonSubString().findLongestBottomUp(s1,s2));
   }
 
   public int findLongest(String s1,String s2,int idx1,int idx2,int count,Integer[][][] dp) {
-    if(idx1>s1.length()-1 || idx2>s2.length()-1) {
+    if(idx1==s1.length()-1 || idx2==s2.length()-1) {
       return count;
     }
     if(dp[idx1][idx2][count]!=null) {
@@ -29,19 +29,18 @@ public class LongestCommonSubString {
   public int findLongestBottomUp(String s1,String s2) {
     int[] dp = new int[s1.length()];
     int max = 0;
-    for (int i = 0; i < s1.length(); i++) {
-      if(s1.charAt(i)==s2.charAt(0)) {
-        dp[0]=1;
-        max=1;
-      }
-    }
-    for (int i = 1; i < s2.length(); i++) {
+    int prv = 0;
+    for (int i = 0; i < s2.length(); i++) {
       for (int j = 0; j < s1.length(); j++) {
         if(s2.charAt(i)==s1.charAt(j)) {
-          dp[i] = 1 + dp[i-1];
-          if(dp[i]>max) {
-            max = dp[i];
+          dp[j] =1 + prv;
+          if(dp[j]>max) {
+            max = dp[j];
           }
+          prv=dp[j];
+        } else {
+          prv = dp[j];
+          dp[j] = 0;
         }
       }
     }
