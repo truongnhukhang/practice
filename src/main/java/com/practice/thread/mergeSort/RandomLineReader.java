@@ -51,6 +51,21 @@ public class RandomLineReader {
       }
       temp = rFile.read();
     }
+    // try to read backward
+    mid = mid - 1;
+    if(mid>0) {
+      rFile.seek(mid);
+      while(mid>0 && rFile.getFilePointer()>start) {
+        temp = rFile.read();
+        for (int i = 0; i < delimiters.length; i++) {
+          if(temp==delimiters[i]) {
+            return rFile.getFilePointer();
+          }
+        }
+        mid=mid-1;
+        rFile.seek(mid);
+      }
+    }
     return -1;
   }
 }

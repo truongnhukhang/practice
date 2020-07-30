@@ -6,9 +6,10 @@ import java.util.concurrent.*;
 
 public class MergeSortBigFile {
 
+  private final Object lock = new Object();
 
   public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
-    String fileLocation = "C:/Users/Admins/Downloads/output-onlinerandomtools2.txt";
+    String fileLocation = "C:/Users/Admins/Downloads/1234.txt";
     long start = System.currentTimeMillis();
     int[] fileCounter = {0};
     MergeSortBigFile mergeSortBigFile = new MergeSortBigFile();
@@ -35,7 +36,6 @@ public class MergeSortBigFile {
     File file = new File(fileLocation);
     file.delete();
 
-//    String part1Sorted = mergeSort(parts[0],fileCounter);
     String[] mergeData = new String[2];
     Thread p1Thread = new Thread(()->{
       try {
@@ -65,7 +65,7 @@ public class MergeSortBigFile {
     p2Thread.join();
     String part1Sorted = mergeData[0];
     String part2Sorted = mergeData[1];
-    merge2FileByLine(part1Sorted,part2Sorted,fileLocation);
+    merge2FileByLine(part1Sorted,part2Sorted, fileLocation);
     File file1 = new File(parts[0]);
     file1.delete();
     File file2 = new File(parts[1]);
@@ -124,10 +124,9 @@ public class MergeSortBigFile {
     String fileName = new File(fileLocation).getName().split("\\.")[0];
     long mid = RandomLineReader.getMidLineInPointer(rFile,0,rFile.length());
     String[] fileLocations = new String[2];
-    synchronized (fileCounter) {
+    synchronized (lock) {
       fileLocations[0] = "tmp/"+fileName.split("_\\(")[0]+"_("+(fileCounter[0]++)+".txt";
       fileLocations[1] = "tmp/"+fileName.split("_\\(")[0]+"_("+(fileCounter[0]++)+".txt";
-
     }
 
     File p1 = new File(fileLocations[0]);
